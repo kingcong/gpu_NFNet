@@ -62,7 +62,7 @@
 
 # [环境要求](#目录)
 
-- 硬件（）
+- 硬件（GPU）
     - 使用来搭建硬件环境。
 - 框架
     - [MindSpore](https://www.mindspore.cn/install/en)
@@ -167,34 +167,6 @@
 
 # [训练和测试](#目录)
 
-- 处理器环境运行
-
-  ```bash
-  # 使用python启动单卡训练
-  python train.py --device_id 0 --device_target  --config ./src/configs/dm_nfnet_f0.yaml > train.log 2>&1 &
-
-  # 使用脚本启动单卡训练
-  bash ./scripts/run_standalone_train_.sh [DEVICE_ID] [CONFIG_PATH]
-
-  # 使用脚本启动多卡训练
-  bash ./scripts/run_distribute_train_.sh [RANK_TABLE_FILE] [CONFIG_PATH]
-
-  # 使用python启动单卡运行评估示例
-  python eval.py --device_id 0 --device_target  --config ./src/configs/dm_nfnet_f0.yaml
-  --pretrained ./ckpt_0/dm_nfnet_f0.ckpt > ./eval.log 2>&1 &
-
-  # 使用脚本启动单卡运行评估示例
-  bash ./scripts/run_eval_.sh [DEVICE_ID] [CONFIG_PATH] [CHECKPOINT_PATH]
-
-  # 运行推理示例
-  bash run_infer_310.sh [MINDIR_PATH] [DATASET_NAME(imagenet2012)] [DATASET_PATH] [DEVICE_ID(optional)]
-  ```
-
-  对于分布式训练，需要提前创建JSON格式的hccl配置文件。
-
-  请遵循以下链接中的说明：
-
-[hccl工具](https://gitee.com/mindspore/models/tree/master/utils/hccl_tools)
 
 - GPU处理器环境运行
 
@@ -250,22 +222,22 @@
 
 #### ImageNet-1k上的NFNet
 
-| 参数                 | GPU      ||
-| -------------------------- | ----------------| -----------------|
+| 参数                 | GPU      |
+| -------------------------- | ----------------|
 |模型|NFNet|NFNet|
-| 模型版本              | NFNet-F0 |NFNet-F0|
-| 资源                   | RTX 3090 | 910|
-| 上传日期              | 2021-11-17        |2021-11-25|
-| MindSpore版本          | 1.5.0                   |1.3.0|
-| 数据集                    | ImageNet-1k Train，共1,281,167张图像|ImageNet-1k Train，共1,281,167张图像 |                                              |
-| 训练参数        | epoch=360, batch_size=128            | epoch=360, batch_size=128|
-| 优化器                  | AGC_SGD         |AGC_SGD|
-| 损失函数              | SoftTargetCrossEntropy  |SoftTargetCrossEntropy|
+| 模型版本              | NFNet-F0 |
+| 资源                   | RTX 3090 | 
+| 上传日期              | 2021-11-17        |
+| MindSpore版本          | 1.5.0                   |
+| 数据集                    | ImageNet-1k Train，共1,281,167张图像|ImageNet-1k Train，共1,281,167张图像 |                                            
+| 训练参数        | epoch=360, batch_size=128            | 
+| 优化器                  | AGC_SGD         |
+| 损失函数              | SoftTargetCrossEntropy  |
 | 损失|0.9339|0.8910|
-| 输出                    | 概率                                                 |概率|
-| 分类准确率             | 八卡：top1: 82.74% top5: 96.20%    |八卡：top1: 83.02% top5: 96.46%  |
-| 速度                      | 八卡：955.82毫秒/步        |八卡：1505.03毫秒/步 |
-| 训练耗时          |136h58m（8p 3090）|191h17m（8p 910）|
+| 输出                    | 概率                                                 |
+| 分类准确率             | 八卡：top1: 82.74% top5: 96.20%    |
+| 速度                      | 八卡：955.82毫秒/步        |
+| 训练耗时          |136h58m（8p 3090）|
 
 ### 推理性能
 
